@@ -117,18 +117,9 @@
     if (!identifier || !indexPath) {
         return 0;
     }
+   
     
-    // Hit cache
-    if ([self.fd_indexPathHeightCache existsHeightAtIndexPath:indexPath]) {
-        [self fd_debugLog:[NSString stringWithFormat:@"hit cache by index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @([self.fd_indexPathHeightCache heightForIndexPath:indexPath])]];
-        return [self.fd_indexPathHeightCache heightForIndexPath:indexPath];
-    }
-    
-    CGFloat height = [self fd_heightForCellWithIdentifier:identifier configuration:configuration];
-    [self.fd_indexPathHeightCache cacheHeight:height byIndexPath:indexPath];
-    [self fd_debugLog:[NSString stringWithFormat: @"cached by index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @(height)]];
-    
-    return height;
+    return 0;
 
 }
 
