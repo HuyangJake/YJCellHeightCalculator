@@ -7,6 +7,8 @@
 //
 
 #import "UITableView+YJCellHeightCalculator.h"
+#import "UITableView+YJLayoutCellDebug.h"
+#import "UITableView+YJIndexPathHeightCache.h"
 #import <objc/runtime.h>
 
 @implementation UITableView (YJCellHeightCalculator)
@@ -43,12 +45,18 @@
     
     if (fittingHeight == 0) {
 #if DEBUG
-        
+        // 使用约束自动布局却获取的高度是0
+        if (cell.contentView.constraints.count > 0) {
+            if (!objc_getAssociatedObject(self, _cmd)) {
+                NSLog(@"[YJCellHeightCalculator] Warning once only: 不能通过 '- systemFittingSize:'(AutoLayout)获取正确的高度，请检查cell中的约束是否设置正确。cell需要满足约束'self-sizing'");
+                objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+        }
         
 #endif
         //使用frame自行计算高度，需要在cell中重写 sizeThatFits: 方法
         fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
-        
+
         [self yj_debugLog:[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]];
     }
     
@@ -104,6 +112,26 @@
     
     return [self yj_systemFittingHeightForConfiguratedCell:templateLayoutCell];
 }
+
+- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration {
+    if (!identifier || !indexPath) {
+        return 0;
+    }
+    
+    // Hit cache
+    if ([self.fd_indexPathHeightCache existsHeightAtIndexPath:indexPath]) {
+        [self fd_debugLog:[NSString stringWithFormat:@"hit cache by index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @([self.fd_indexPathHeightCache heightForIndexPath:indexPath])]];
+        return [self.fd_indexPathHeightCache heightForIndexPath:indexPath];
+    }
+    
+    CGFloat height = [self fd_heightForCellWithIdentifier:identifier configuration:configuration];
+    [self.fd_indexPathHeightCache cacheHeight:height byIndexPath:indexPath];
+    [self fd_debugLog:[NSString stringWithFormat: @"cached by index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @(height)]];
+    
+    return height;
+
+}
+
 @end
 
 @implementation UITableViewCell (YJCellHeightCalculator)

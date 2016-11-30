@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UITableView+YJLayoutCellDebug.h"
 
 @interface UITableView (YJCellHeightCalculator)
 
 - (__kindof UITableViewCell *)yj_templateCellForReuseIdentifier:(NSString *)identifier;
 
+/**
+ 通过identifier获取用于cell,在block中填充数据,返回计算的高度
+ */
 - (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier configuration:(void (^)(id cell))configuration;
+
+/**
+ 通过identifier获取用于cell,在block中填充数据,返回计算的高度,并进行缓存
+ */
+- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration;
+
 @end
 
 
@@ -30,10 +38,9 @@
 ///
 @property (nonatomic, assign) BOOL yj_isTemplateLayoutCell;
 
-/// Enable to enforce this template layout cell to use "frame layout" rather than "auto layout",
-/// and will ask cell's height by calling "-sizeThatFits:", so you must override this method.
-/// Use this property only when you want to manually control this template layout cell's height
-/// calculation mode, default to NO.
-///
-@property (nonatomic, assign) BOOL yj_enforceFrameLayout;
+
+/**
+ 选择使用frame layout还是auto layout ,需要手动地控制template cell的高度的时候，设置为YES并重写sizeThatFit: 方法
+ */
+@property (nonatomic, assign) BOOL yj_enforceFrameLayout;//default to NO.
 @end

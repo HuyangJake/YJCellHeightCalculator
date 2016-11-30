@@ -18,6 +18,7 @@
 		23A7504E1DEE83970029ABA7 /* YJTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A7504D1DEE83970029ABA7 /* YJTableViewManager.m */; };
 		23A750511DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A750501DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.m */; };
 		23A750531DEEB4CC0029ABA7 /* YJFrameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23A750521DEEB4CC0029ABA7 /* YJFrameCell.xib */; };
+		23A750561DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A750551DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m */; };
 		F101E7A51DE6CF6500D2BC6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F101E7A41DE6CF6500D2BC6B /* main.m */; };
 		F101E7A81DE6CF6500D2BC6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F101E7A71DE6CF6500D2BC6B /* AppDelegate.m */; };
 		F101E7AE1DE6CF6500D2BC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F101E7AC1DE6CF6500D2BC6B /* Main.storyboard */; };
@@ -46,6 +47,8 @@
 		23A7504F1DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+YJCellHeightCalculator.h"; sourceTree = "<group>"; };
 		23A750501DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+YJCellHeightCalculator.m"; sourceTree = "<group>"; };
 		23A750521DEEB4CC0029ABA7 /* YJFrameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YJFrameCell.xib; sourceTree = "<group>"; };
+		23A750541DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+YJIndexPathHeightCache.h"; sourceTree = "<group>"; };
+		23A750551DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+YJIndexPathHeightCache.m"; sourceTree = "<group>"; };
 		F101E7A01DE6CF6500D2BC6B /* CellHeightCalculatorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CellHeightCalculatorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F101E7A41DE6CF6500D2BC6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F101E7A61DE6CF6500D2BC6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 			children = (
 				23A7502F1DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.h */,
 				23A750301DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m */,
+				23A750541DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.h */,
+				23A750551DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m */,
 				23A7504F1DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.h */,
 				23A750501DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.m */,
 			);
@@ -237,6 +242,7 @@
 				23A750311DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m in Sources */,
 				23A7504E1DEE83970029ABA7 /* YJTableViewManager.m in Sources */,
 				23A750471DEE7DB80029ABA7 /* YJDataModel.m in Sources */,
+				23A750561DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m in Sources */,
 				23A7504A1DEE7FF20029ABA7 /* YTBaseModel.m in Sources */,
 				23A750441DEE7B2D0029ABA7 /* YJFrameCell.m in Sources */,
 				F101E7A51DE6CF6500D2BC6B /* main.m in Sources */,
