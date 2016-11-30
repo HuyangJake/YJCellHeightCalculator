@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YJAutoLayoutCell : UITableViewCell
-
+- (void)bindData:(id)model;
 @end

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YJFrameCell : UITableViewCell
-
+- (void)bindData:(id)model;
 @end
