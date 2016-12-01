@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23A750311DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A750301DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m */; };
 		23A750361DEE78F40029ABA7 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 23A750351DEE78F40029ABA7 /* data.json */; };
 		23A750391DEE79E70029ABA7 /* YJAutoLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A750381DEE79E70029ABA7 /* YJAutoLayoutViewController.m */; };
 		23A7503C1DEE79F90029ABA7 /* YJFrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A7503B1DEE79F90029ABA7 /* YJFrameViewController.m */; };
@@ -27,8 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23A7502F1DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+YJLayoutCellDebug.h"; sourceTree = "<group>"; };
-		23A750301DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+YJLayoutCellDebug.m"; sourceTree = "<group>"; };
 		23A750351DEE78F40029ABA7 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../data.json; sourceTree = "<group>"; };
 		23A750371DEE79E70029ABA7 /* YJAutoLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YJAutoLayoutViewController.h; path = ../YJAutoLayoutViewController.h; sourceTree = "<group>"; };
 		23A750381DEE79E70029ABA7 /* YJAutoLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YJAutoLayoutViewController.m; path = ../YJAutoLayoutViewController.m; sourceTree = "<group>"; };
@@ -73,8 +70,6 @@
 		23A7502B1DEE77470029ABA7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				23A7502F1DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.h */,
-				23A750301DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m */,
 				23A750541DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.h */,
 				23A750551DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m */,
 				23A7504F1DEEA3B80029ABA7 /* UITableView+YJCellHeightCalculator.h */,
@@ -239,7 +234,6 @@
 				23A7503C1DEE79F90029ABA7 /* YJFrameViewController.m in Sources */,
 				23A750391DEE79E70029ABA7 /* YJAutoLayoutViewController.m in Sources */,
 				23A750411DEE7B200029ABA7 /* YJAutoLayoutCell.m in Sources */,
-				23A750311DEE78B60029ABA7 /* UITableView+YJLayoutCellDebug.m in Sources */,
 				23A7504E1DEE83970029ABA7 /* YJTableViewManager.m in Sources */,
 				23A750471DEE7DB80029ABA7 /* YJDataModel.m in Sources */,
 				23A750561DEEC6EC0029ABA7 /* UITableView+YJIndexPathHeightCache.m in Sources */,

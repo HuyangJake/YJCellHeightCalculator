@@ -17,30 +17,20 @@
  */
 - (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier configuration:(void (^)(id cell))configuration;
 
-/**
- 通过identifier获取用于cell,在block中填充数据,返回计算的高度,并进行缓存
- */
-- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration;
-
 @end
 
 
 @interface UITableViewCell (YJCellHeightCalculator)
-/// Indicate this is a template layout cell for calculation only.
-/// You may need this when there are non-UI side effects when configure a cell.
-/// Like:
-///   - (void)configureCell:(FooCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-///       cell.entity = [self entityAtIndexPath:indexPath];
-///       if (!cell.fd_isTemplateLayoutCell) {
-///           [self notifySomething]; // non-UI side effects
-///       }
-///   }
-///
-@property (nonatomic, assign) BOOL yj_isTemplateLayoutCell;
-
 
 /**
- 选择使用frame layout还是auto layout ,需要手动地控制template cell的高度的时候，设置为YES并重写sizeThatFit: 方法
+ 标记当前cell为模板cell用于计算高度
+ */
+@property (nonatomic, assign) BOOL yj_isTemplateLayoutCell;
+
+/**
+ 选择使用frame layout还是auto layout 
+ 需要手动地控制template cell的高度的时候
+ 设置为YES并在Cell中重写 sizeThatFit: 方法返回cell的高度
  */
 @property (nonatomic, assign) BOOL yj_enforceFrameLayout;//default to NO.
 @end

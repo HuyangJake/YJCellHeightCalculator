@@ -3,11 +3,10 @@
 //  CellHeightCalculatorDemo
 //
 //  Created by Jake on 16/11/30.
-//  Copyright © 2016年 jJake.hu. All rights reserved.
+//  Copyright © 2016年 Jake.hu. All rights reserved.
 //
 
 #import "UITableView+YJCellHeightCalculator.h"
-#import "UITableView+YJLayoutCellDebug.h"
 #import "UITableView+YJIndexPathHeightCache.h"
 #import <objc/runtime.h>
 
@@ -39,8 +38,9 @@
         //使用autolayout进行cell布局自适应，获取当前高度
         fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         [cell.contentView removeConstraint:widthFenceConstraint];
-        
-        [self yj_debugLog:[NSString stringWithFormat:@"calculate using system fitting size (AutoLayout) - %@", @(fittingHeight)]];
+#if DEBUG
+        NSLog(@"%@",[NSString stringWithFormat:@"calculate using system fitting size (AutoLayout) - %@", @(fittingHeight)]);
+#endif
     }
     
     if (fittingHeight == 0) {
@@ -52,12 +52,12 @@
                 objc_setAssociatedObject(self, _cmd, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
         }
-        
 #endif
         //使用frame自行计算高度，需要在cell中重写 sizeThatFits: 方法
         fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
-
-        [self yj_debugLog:[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]];
+#if DEBUG
+        NSLog(@"%@",[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]);
+#endif
     }
     
     //获取高度失败，最后只能使用默认的高度
@@ -90,7 +90,9 @@
         templateCell.yj_isTemplateLayoutCell = YES;
         templateCell.contentView.translatesAutoresizingMaskIntoConstraints = NO;
         templateCellsByIdentifiers[identifier] = templateCell;
-        [self yj_debugLog:[NSString stringWithFormat:@"layout cell created - %@", identifier]];
+#if DEBUG
+        NSLog(@"%@",[NSString stringWithFormat:@"layout cell created - %@", identifier]);
+#endif
     }
     return templateCell;
 }
@@ -111,16 +113,6 @@
     }
     
     return [self yj_systemFittingHeightForConfiguratedCell:templateLayoutCell];
-}
-
-- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration {
-    if (!identifier || !indexPath) {
-        return 0;
-    }
-   
-    
-    return 0;
-
 }
 
 @end
