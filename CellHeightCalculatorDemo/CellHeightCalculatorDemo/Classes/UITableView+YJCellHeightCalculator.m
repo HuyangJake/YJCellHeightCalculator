@@ -34,10 +34,35 @@
     if (!cell.yj_enforceFrameLayout && contentViewWidth > 0) {
         //给cell添加一个当前宽度的约束，用于更新约束时间宽度不变获取正确的高度
         NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
+        
+        //iOS10.3之后，Auto Layout会给cell的contentView添加一个默认为0的宽度约束，此处我们手动给contentView添加上下左右约束
+        static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            isSystemVersionEqualOrGreaterThen10_2 = [UIDevice.currentDevice.systemVersion compare:@"10.2" options:NSNumericSearch] != NSOrderedAscending;
+        });
+        
+        NSArray<NSLayoutConstraint *> *edgeConstraints;
+        if (isSystemVersionEqualOrGreaterThen10_2) {
+            //为了避免约束冲突，将原有的宽度约束的优先级下降
+            widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
+            
+            // Build edge constraints
+            NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+            NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+            NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+            NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+            edgeConstraints = @[leftConstraint, rightConstraint, topConstraint, bottomConstraint];
+            [cell addConstraints:edgeConstraints];
+        }
+        
         [cell.contentView addConstraint:widthFenceConstraint];
         //使用autolayout进行cell布局自适应，获取当前高度
         fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         [cell.contentView removeConstraint:widthFenceConstraint];
+        if (isSystemVersionEqualOrGreaterThen10_2) {
+            [cell removeConstraints:edgeConstraints];
+        }
 #if DEBUG
         NSLog(@"%@",[NSString stringWithFormat:@"calculate using system fitting size (AutoLayout) - %@", @(fittingHeight)]);
 #endif
