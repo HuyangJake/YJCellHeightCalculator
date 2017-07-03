@@ -12,6 +12,23 @@
 
 @implementation UITableView (YJCellHeightCalculator)
 
+- (BOOL)yj_debugLogEnable{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (void)setYj_debugLogEnable:(BOOL)yj_debugLogEnable {
+    objc_setAssociatedObject(self, @selector(yj_debugLogEnable), @(yj_debugLogEnable), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (void)YJLog:(NSString *)string {
+    if (!self.yj_debugLogEnable) {
+        return;
+    }
+#if DEBUG
+    NSLog(@"%@", string);
+#endif
+}
+
 - (CGFloat)yj_systemFittingHeightForConfiguratedCell:(UITableViewCell *)cell {
     CGFloat contentViewWidth = CGRectGetWidth(self.frame);
     //cell中有accessoryView的情况cell的contentView的宽度会比tableView窄
@@ -63,9 +80,7 @@
         if (isSystemVersionEqualOrGreaterThen10_2) {
             [cell removeConstraints:edgeConstraints];
         }
-#if DEBUG
-        NSLog(@"%@",[NSString stringWithFormat:@"calculate using system fitting size (AutoLayout) - %@", @(fittingHeight)]);
-#endif
+        [self YJLog:[NSString stringWithFormat:@"calculate using system fitting size (AutoLayout) - %@", @(fittingHeight)]];
     }
     
     if (fittingHeight == 0) {
@@ -80,9 +95,7 @@
 #endif
         //使用frame自行计算高度，需要在cell中重写 sizeThatFits: 方法
         fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
-#if DEBUG
-        NSLog(@"%@",[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]);
-#endif
+        [self YJLog:[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]];
     }
     
     //获取高度失败，最后只能使用默认的高度
@@ -115,9 +128,7 @@
         templateCell.yj_isTemplateLayoutCell = YES;
         templateCell.contentView.translatesAutoresizingMaskIntoConstraints = NO;
         templateCellsByIdentifiers[identifier] = templateCell;
-#if DEBUG
-        NSLog(@"%@",[NSString stringWithFormat:@"layout cell created - %@", identifier]);
-#endif
+         [self YJLog:[NSString stringWithFormat:@"layout cell created - %@", identifier]];
     }
     return templateCell;
 }
@@ -145,17 +156,13 @@
         return 0;
     }
     if ([self.yj_indexPathHeightCache existsHeightAtIndexPath:indexPath]) {
-#if DEBUG
-        NSLog(@"%@",[NSString stringWithFormat:@"获得缓存的高度index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @([self.yj_indexPathHeightCache heightForIndexPath:indexPath])]);
-#endif
+        [self YJLog:[NSString stringWithFormat:@"获得缓存的高度index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @([self.yj_indexPathHeightCache heightForIndexPath:indexPath])]];
         return [self.yj_indexPathHeightCache heightForIndexPath:indexPath];
     }
     
     CGFloat height = [self yj_heightForCellWithIdentifier:identifier configuration:configuration];
     [self.yj_indexPathHeightCache cacheHeight:height byIndexPath:indexPath];
-#if DEBUG
-    NSLog(@"%@",[NSString stringWithFormat: @"缓存高度 index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @(height)]);
-#endif
+    [self YJLog:[NSString stringWithFormat: @"缓存高度 index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @(height)]];
     return height;
 }
 

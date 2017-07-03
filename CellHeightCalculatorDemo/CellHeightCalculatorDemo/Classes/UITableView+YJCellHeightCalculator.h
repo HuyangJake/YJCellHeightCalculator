@@ -10,6 +10,14 @@
 
 @interface UITableView (YJCellHeightCalculator)
 
+/**
+ 是否允许打印log信息
+ */
+@property (nonatomic, assign) BOOL yj_debugLogEnable; //default is NO
+
+/**
+ 根据identifier获取用于计算高度的模板Cell
+ */
 - (__kindof UITableViewCell *)yj_templateCellForReuseIdentifier:(NSString *)identifier;
 
 /**

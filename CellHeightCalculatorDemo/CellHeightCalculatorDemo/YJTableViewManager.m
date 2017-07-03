@@ -25,6 +25,7 @@
         tableView.dataSource = self;
         self.tableView = tableView;
         self.type = type;
+        self.tableView.yj_debugLogEnable = YES;
     }
     return self;
 }
