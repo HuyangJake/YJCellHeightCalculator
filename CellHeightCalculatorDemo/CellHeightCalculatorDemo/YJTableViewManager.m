@@ -82,7 +82,7 @@
     }
     
     __weak typeof(self)weakSelf = self;
-    return [tableView yj_heightForCellWithIdentifier:identifier configuration:^(id cell) {
+    return [tableView yj_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(id cell)  {
         [cell bindData:weakSelf.dataSource[indexPath.row]];
     }];
 }

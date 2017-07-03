@@ -35,7 +35,7 @@
         //给cell添加一个当前宽度的约束，用于更新约束时间宽度不变获取正确的高度
         NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:cell.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentViewWidth];
         
-        //iOS10.3之后，Auto Layout会给cell的contentView添加一个默认为0的宽度约束，此处我们手动给contentView添加上下左右约束
+        //iOS10.3之后，Auto Layout会给cell的contentView添加一个默认为0的宽度约束，此处手动给contentView添加上下左右约束
         static BOOL isSystemVersionEqualOrGreaterThen10_2 = NO;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -138,6 +138,25 @@
     }
     
     return [self yj_systemFittingHeightForConfiguratedCell:templateLayoutCell];
+}
+
+- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id))configuration {
+    if (!identifier || !indexPath) {
+        return 0;
+    }
+    if ([self.yj_indexPathHeightCache existsHeightAtIndexPath:indexPath]) {
+#if DEBUG
+        NSLog(@"%@",[NSString stringWithFormat:@"获得缓存的高度index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @([self.yj_indexPathHeightCache heightForIndexPath:indexPath])]);
+#endif
+        return [self.yj_indexPathHeightCache heightForIndexPath:indexPath];
+    }
+    
+    CGFloat height = [self yj_heightForCellWithIdentifier:identifier configuration:configuration];
+    [self.yj_indexPathHeightCache cacheHeight:height byIndexPath:indexPath];
+#if DEBUG
+    NSLog(@"%@",[NSString stringWithFormat: @"缓存高度 index path[%@:%@] - %@", @(indexPath.section), @(indexPath.row), @(height)]);
+#endif
+    return height;
 }
 
 @end

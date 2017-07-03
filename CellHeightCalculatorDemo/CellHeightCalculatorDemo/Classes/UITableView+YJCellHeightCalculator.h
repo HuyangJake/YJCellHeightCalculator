@@ -3,7 +3,7 @@
 //  CellHeightCalculatorDemo
 //
 //  Created by Jake on 16/11/30.
-//  Copyright © 2016年 jJake.hu. All rights reserved.
+//  Copyright © 2016年 Jake.hu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -16,6 +16,12 @@
  通过identifier获取用于cell,在block中填充数据,返回计算的高度
  */
 - (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier configuration:(void (^)(id cell))configuration;
+
+/**
+ 计算cell的高度，并通过IndexPath缓存
+ @return 返回缓存过的高度
+ */
+- (CGFloat)yj_heightForCellWithIdentifier:(NSString *)identifier cacheByIndexPath:(NSIndexPath *)indexPath configuration:(void (^)(id cell))configuration;
 
 @end
 
